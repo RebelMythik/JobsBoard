@@ -2,7 +2,6 @@ package me.rebelmythik.requestboard;
 
 import me.rebelmythik.requestboard.Vault.Vault;
 import me.rebelmythik.requestboard.api.Request;
-import me.rebelmythik.requestboard.api.SignMenuFactory;
 import me.rebelmythik.requestboard.commands.CreateRequestCommand;
 import me.rebelmythik.requestboard.commands.openguicommand;
 import me.rebelmythik.requestboard.database.*;
@@ -35,14 +34,14 @@ public final class Requestboard extends JavaPlugin {
 
     public ArrayList<Request> requestList = new ArrayList<Request>();
 
-    private SignMenuFactory signMenuFactory;
+
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         getCommand("requestboard").setExecutor(new openguicommand(this));
         getCommand("createrequest").setExecutor(new CreateRequestCommand(this));
-        this.signMenuFactory = new SignMenuFactory(this);
+
 
 
 
@@ -63,9 +62,7 @@ public final class Requestboard extends JavaPlugin {
         }
 
     }
-    public SignMenuFactory getSignMenuFactory() {
-        return this.signMenuFactory;
-    }
+
 
     //make static method to create a sign
 
