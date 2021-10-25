@@ -1,0 +1,10 @@
+name: Requestboard
+version: ${project.version}
+main: me.rebelmythik.requestboard.Requestboard
+api-version: 1.16
+depend: [ Vault ]
+authors: [ RebelMythik ]
+description: Request blocks for others to fill
+commands:
+  requestboard:
+  createrequest:
