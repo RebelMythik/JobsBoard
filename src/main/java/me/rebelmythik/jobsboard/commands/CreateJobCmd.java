@@ -16,11 +16,19 @@ public class CreateJobCmd implements CommandExecutor {
     }
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if (!sender.hasPermission("jobsboard.createrequest")) { sender.sendMessage(ChatColor.DARK_RED + "AMOGUS SUSSY BAKA"); return true; }
+        if (!sender.hasPermission("jobsboard.createrequest")) { sender.sendMessage(ChatColor.DARK_RED + "You do not have permission to run this command."); return true; }
         if (!(sender instanceof Player)) {
             return false;
         }
         Player player = (Player) sender;
+
+        // args: /jb create ITEM AMOUNT REWARD
+
+
+
+
+
+
         me.rebelmythik.jobsboard.guis.CreateJob.createNewRequest(plugin, player, null, 1, 1, 1);
         return true;
     }

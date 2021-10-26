@@ -9,12 +9,15 @@ import me.rebelmythik.jobsboard.tasks.CancelJobTask;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
+import org.reflections.Reflections;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public final class JobsBoardMain extends JavaPlugin {
@@ -55,6 +58,9 @@ public final class JobsBoardMain extends JavaPlugin {
         }
         getLogger().info("Database Connected");
 
+        // register all listeners present in .listeners package
+        RegisterListeners();
+        
         // create config.yml in the plugin folder
         this.saveDefaultConfig();
         // create mysql.yml file in the plugin folder
@@ -105,8 +111,8 @@ public final class JobsBoardMain extends JavaPlugin {
     }
 
     /** - Getter for the database helper */
-    public DatabaseManager getDatabaseHelper() {
-        return databaseManager;
+    public DatabaseHelper getDatabaseHelper() {
+        return databaseHelper;
     }
 
     /** - Sets up the database on init; Run on enable / plugin reload *if you want* */
@@ -133,5 +139,20 @@ public final class JobsBoardMain extends JavaPlugin {
             return false;
         }
         return true;
+    }
+
+    // automatically registers listeners for each class in listeners package
+    private void RegisterListeners() {
+        String packageName = getClass().getPackage().getName();
+        for (Class<?> clazz : new Reflections(packageName + ".listeners")
+                .getSubTypesOf(Listener.class)
+        ) {
+            try {
+                Listener listener = (Listener) clazz.getDeclaredConstructor()
+                        .newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
