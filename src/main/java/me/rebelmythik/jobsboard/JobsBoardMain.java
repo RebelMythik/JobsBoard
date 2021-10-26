@@ -45,12 +45,7 @@ public final class JobsBoardMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-        getCommand("jobsboard").setExecutor(new BrowseJobsCmd(this));
-        getCommand("createjob").setExecutor(new CreateJobCmd(this));
-
-        self = this;
-
+        
         try {
             setupDatabase();
         } catch (Exception e) {
