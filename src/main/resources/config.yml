@@ -1,0 +1,16 @@
+#
+# JobsBoard
+# By RebelMythik & Kronus
+#
+
+# Settings to control how job requests function
+jobs:
+  # Settings for minimum and maximum items per job request
+  job_item_limits:
+    min: 1
+    max: 64
+  # Settings for minimum and maximum rewards per job request
+  job_reward_limits:
+    min: 1.00
+    max: 2000.00
+

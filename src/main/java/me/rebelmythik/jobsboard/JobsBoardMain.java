@@ -20,18 +20,21 @@ import java.util.ArrayList;
 public final class JobsBoardMain extends JavaPlugin {
 
     public static JobsBoardMain self;
-    private static FileConfiguration customConfig;
-    private static File customConfigFile;
+    private static FileConfiguration mySqlConfig;
+    private static File mySqlYml;
 
-    public String dbPrefix = "dot";
+    private static File mainConfigFile;
+    private static FileConfiguration mainConfig;
+
+    public String dbPrefix = "jb_";
     public static MySQLCore database;
     private static DatabaseManager databaseManager;
     private static DatabaseHelper databaseHelper;
-    private static String host = "put-host-here"; // Host to connect for MySQL
-    private static String user = "put-user-here"; // User to try and connect with for MySQL
-    private static String pass = "put-pass-here"; // Password for above
-    private static String databat = "put-database-name-here"; // Database name to use
-    private static short port = 1234; // Port for the host for MySQL
+    private static String host = "localhost"; // Host to connect for MySQL
+    private static String user = "username"; // User to try and connect with for MySQL
+    private static String pass = "passy"; // Password for above
+    private static String databat = "database"; // Database name to use
+    private static short port = 3306; // Port for the host for MySQL
     private boolean useSSL = false; // Use ssl for MySQL?
 
     public ArrayList<Job> jobList = new ArrayList<Job>();
@@ -52,33 +55,37 @@ public final class JobsBoardMain extends JavaPlugin {
         }
         getLogger().info("Database Connected");
 
-        createCustomConfig();
+        // create config.yml in the plugin folder
+        this.saveDefaultConfig();
+        // create mysql.yml file in the plugin folder
+        createMySqlYml();
+
         if (!Vault.createEconomy()) {
             saveDefaultConfig();
         }
 
         // on runTaskTimer, first param is the plugin it's running on, second param is delay before schedule starts
         // third parameter is length of time between tasks being ran. 20L = 1 second, 1L = 1 Tick and 20 ticks = 1 second
-        BukkitTask jobCanceller = new CancelJobTask(this).runTaskTimer(this, 0L, 1000L);
+        BukkitTask jobCanceller = new CancelJobTask(this).runTaskTimer(this, 0L, 200L);
     }
 
     //make static method to create a sign
-    private void createCustomConfig () {
-        customConfigFile = new File(getDataFolder(), "mysql.yml");
-        if (customConfigFile.exists()) {
-            customConfigFile.getParentFile().mkdirs();
+    private void createMySqlYml () {
+        mySqlYml = new File(getDataFolder(), "mysql.yml");
+        if (mySqlYml.exists()) {
+            mySqlYml.getParentFile().mkdirs();
             saveResource("mysql.yml", false);
         }
 
-        customConfig = new YamlConfiguration();
+        mySqlConfig = new YamlConfiguration();
         try {
-            customConfig.load(customConfigFile);
+            mySqlConfig.load(mySqlYml);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }
-    public static FileConfiguration getCustomConfig () {
-        return customConfig;
+    public static FileConfiguration getMySqlConfig () {
+        return mySqlConfig;
     }
 
     @Override
