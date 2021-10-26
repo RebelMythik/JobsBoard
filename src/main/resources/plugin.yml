@@ -11,10 +11,10 @@ commands:
       - jb
       - jobs
     description: Open the Jobs Board
-    permission: jobsboard.browse
+    permission: jobsboard.command.browse
   createjob:
     description: Create a Job Request
-    permission: jobsboard.createjob
+    permission: jobsboard.command.createjob
 
 permissions:
   jobsboard.*:
