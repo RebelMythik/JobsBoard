@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.rebelmythik</groupId>
-    <artifactId>requestboard</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>JobsBoard</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Requestboard</name>
+    <name>JobsBoard</name>
 
-    <description>Request blocks for others to fill</description>
+    <description>Post work requests for other players to fulfill.</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

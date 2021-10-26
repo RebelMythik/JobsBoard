@@ -1,6 +1,6 @@
-package me.rebelmythik.requestboard.database;
+package me.rebelmythik.jobsboard.database;
 
-import me.rebelmythik.requestboard.Requestboard;
+import me.rebelmythik.jobsboard.JobsBoardMain;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -11,10 +11,10 @@ import java.sql.SQLException;
 public class SQLiteCore extends AbstractDatabaseCore {
     private final File dbFile;
 
-    private final Requestboard plugin;
+    private final JobsBoardMain plugin;
     private DatabaseConnection connection;
 
-    public SQLiteCore(Requestboard plugin, File dbFile) {
+    public SQLiteCore(JobsBoardMain plugin, File dbFile) {
         this.plugin = plugin;
         this.dbFile = dbFile;
     }

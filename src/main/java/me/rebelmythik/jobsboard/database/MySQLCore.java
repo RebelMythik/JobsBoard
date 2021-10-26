@@ -1,6 +1,6 @@
-package me.rebelmythik.requestboard.database;
+package me.rebelmythik.jobsboard.database;
 
-import me.rebelmythik.requestboard.Requestboard;
+import me.rebelmythik.jobsboard.JobsBoardMain;
 import org.bukkit.plugin.Plugin;
 
 import java.sql.DriverManager;
@@ -18,10 +18,10 @@ public class MySQLCore extends AbstractDatabaseCore {
      */
     private final Properties info;
     private final String url;
-    private final Requestboard plugin;
+    private final JobsBoardMain plugin;
 
     public MySQLCore(
-            Requestboard plugin,
+            JobsBoardMain plugin,
             String host,
             String user,
             String pass,

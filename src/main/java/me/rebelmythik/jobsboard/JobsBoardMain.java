@@ -1,10 +1,10 @@
-package me.rebelmythik.requestboard;
+package me.rebelmythik.jobsboard;
 
-import me.rebelmythik.requestboard.Vault.Vault;
-import me.rebelmythik.requestboard.api.Request;
-import me.rebelmythik.requestboard.commands.CreateRequestCommand;
-import me.rebelmythik.requestboard.commands.openguicommand;
-import me.rebelmythik.requestboard.database.*;
+import me.rebelmythik.jobsboard.Vault.Vault;
+import me.rebelmythik.jobsboard.api.Job;
+import me.rebelmythik.jobsboard.commands.CreateJobCmd;
+import me.rebelmythik.jobsboard.commands.BrowseJobsCmd;
+import me.rebelmythik.jobsboard.database.*;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,9 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class Requestboard extends JavaPlugin {
+public final class JobsBoardMain extends JavaPlugin {
 
-    public static Requestboard self;
+    public static JobsBoardMain self;
     private static FileConfiguration customConfig;
     private static File customConfigFile;
 
@@ -31,25 +31,18 @@ public final class Requestboard extends JavaPlugin {
     private static short port = 1234; // Port for the host for MySQL
     private boolean useSSL = false; // Use ssl for MySQL?
 
-
-    public ArrayList<Request> requestList = new ArrayList<Request>();
-
-
+    public ArrayList<Job> jobList = new ArrayList<Job>();
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getCommand("requestboard").setExecutor(new openguicommand(this));
-        getCommand("createrequest").setExecutor(new CreateRequestCommand(this));
-
-
-
+        getCommand("jobsboard").setExecutor(new BrowseJobsCmd(this));
+        getCommand("createjob").setExecutor(new CreateJobCmd(this));
 
         self = this;
 
         try {
             setupDatabase();
-
         } catch (Exception e) {
             // Ahh Shit Something Broke
             e.printStackTrace();
@@ -63,9 +56,7 @@ public final class Requestboard extends JavaPlugin {
 
     }
 
-
     //make static method to create a sign
-
     private void createCustomConfig () {
         customConfigFile = new File(getDataFolder(), "mysql.yml");
         if (customConfigFile.exists()) {

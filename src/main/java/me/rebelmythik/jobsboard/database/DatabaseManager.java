@@ -1,6 +1,6 @@
-package me.rebelmythik.requestboard.database;
+package me.rebelmythik.jobsboard.database;
 
-import me.rebelmythik.requestboard.Requestboard;
+import me.rebelmythik.jobsboard.JobsBoardMain;
 import org.bukkit.plugin.IllegalPluginAccessException;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -13,7 +13,7 @@ public class DatabaseManager {
 
     private final Queue<DatabaseTask> sqlQueue = new LinkedBlockingQueue<>();
     private final AbstractDatabaseCore database;
-    private final Requestboard plugin;
+    private final JobsBoardMain plugin;
     private final boolean useQueue;
     private BukkitTask task;
 
@@ -24,7 +24,7 @@ public class DatabaseManager {
      * @param dbCore database core
      * @throws ConnectionException when database connection failed
      */
-    public DatabaseManager(Requestboard plugin, AbstractDatabaseCore dbCore) throws ConnectionException {
+    public DatabaseManager(JobsBoardMain plugin, AbstractDatabaseCore dbCore) throws ConnectionException {
         this.plugin = plugin;
         DatabaseConnection connection = dbCore.getConnection();
         try {

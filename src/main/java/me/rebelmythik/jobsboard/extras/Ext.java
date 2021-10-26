@@ -1,4 +1,4 @@
-package me.rebelmythik.requestboard.extras;
+package me.rebelmythik.jobsboard.extras;
 
 import org.bukkit.ChatColor;
 

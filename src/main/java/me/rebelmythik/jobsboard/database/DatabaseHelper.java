@@ -1,6 +1,6 @@
-package me.rebelmythik.requestboard.database;
+package me.rebelmythik.jobsboard.database;
 
-import me.rebelmythik.requestboard.Requestboard;
+import me.rebelmythik.jobsboard.JobsBoardMain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +9,9 @@ import java.sql.Statement;
 public class DatabaseHelper {
     private final DatabaseManager manager;
 
-    private final Requestboard plugin;
+    private final JobsBoardMain plugin;
 
-    public DatabaseHelper(Requestboard plugin, DatabaseManager manager) throws SQLException {
+    public DatabaseHelper(JobsBoardMain plugin, DatabaseManager manager) throws SQLException {
         this.plugin = plugin;
         this.manager = manager;
 
