@@ -49,16 +49,16 @@ public class BrowseJobs {
         }, ChatColor.GREEN + "Close Menu"));
 
         //Add previous page button
-        browsegui.addElement(new GuiPageElement('2', new ItemStack(Material.ARROW), GuiPageElement.PageAction.PREVIOUS, "Go to previous page (%prevpage%)"));
+        browsegui.addElement(new GuiPageElement('2', new ItemStack(Material.ARROW), GuiPageElement.PageAction.PREVIOUS, "Previous Page (%prevpage%)"));
 
         //Add next page button
-        browsegui.addElement(new GuiPageElement('3', new ItemStack(Material.ARROW), GuiPageElement.PageAction.NEXT, "Go to next page (%nextpage%)"));
+        browsegui.addElement(new GuiPageElement('3', new ItemStack(Material.ARROW), GuiPageElement.PageAction.NEXT, "Next Page (%nextpage%)"));
 
         //Add first page button
-        browsegui.addElement(new GuiPageElement('5', new ItemStack(Material.ARROW), GuiPageElement.PageAction.FIRST, "Go to first page (%nextpage%)"));
+        browsegui.addElement(new GuiPageElement('5', new ItemStack(Material.ARROW), GuiPageElement.PageAction.FIRST, "First Page (%nextpage%)"));
 
         //Add last page button
-        browsegui.addElement(new GuiPageElement('6', new ItemStack(Material.ARROW), GuiPageElement.PageAction.LAST, "Go to last page (%nextpage%)"));
+        browsegui.addElement(new GuiPageElement('6', new ItemStack(Material.ARROW), GuiPageElement.PageAction.LAST, "Last Page (%nextpage%)"));
 
         //Add create request button
         browsegui.addElement(new StaticGuiElement('4', new ItemStack(Material.PAPER), 1, click -> {
@@ -76,10 +76,10 @@ public class BrowseJobs {
                 ItemStack item = curReq.getItem();
                 ItemMeta meta = item.getItemMeta();
                 List<String> lore = new ArrayList<String>();
-                lore.add(ChatColor.GREEN + "Requester: " + curReq.getOwnerName());
+                lore.add(ChatColor.GREEN + "Posted By: " + curReq.getOwnerName());
                 lore.add(ChatColor.GREEN + String.valueOf(curReq.getCount()) + " x " + item.getType().toString());
-                lore.add(ChatColor.GREEN + "Price: " + String.valueOf(curReq.getPrice()) + " moneys");
-                lore.add(ChatColor.GREEN + "Time remaining: " + String.valueOf(curReq.getTime()) + " seconds");
+                lore.add(ChatColor.GREEN + "Reward: " + String.valueOf(curReq.getPrice()) + " moneys");
+                lore.add(ChatColor.GREEN + String.valueOf(curReq.getTime()) + " Seconds Remaining");
                 meta.setLore(lore);
                 item.setItemMeta(meta);
                 guiGroup.addElement(new StaticGuiElement('i', item, 1, click -> {
