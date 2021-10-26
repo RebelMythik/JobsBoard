@@ -4,6 +4,7 @@ import me.rebelmythik.jobsboard.Vault.Vault;
 import me.rebelmythik.jobsboard.api.Job;
 import me.rebelmythik.jobsboard.commands.CreateJobCmd;
 import me.rebelmythik.jobsboard.commands.BrowseJobsCmd;
+import me.rebelmythik.jobsboard.commands.PluginCommand;
 import me.rebelmythik.jobsboard.database.*;
 import me.rebelmythik.jobsboard.tasks.CancelJobTask;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -58,8 +59,8 @@ public final class JobsBoardMain extends JavaPlugin {
         }
         getLogger().info("Database Connected");
 
-        // register all listeners present in .listeners package
-        RegisterListeners();
+        // magic function (no touchy)
+        RegisterListenersAndCommands();
 
         // create config.yml in the plugin folder
         this.saveDefaultConfig();
@@ -141,8 +142,8 @@ public final class JobsBoardMain extends JavaPlugin {
         return true;
     }
 
-    // automatically registers listeners for each class in listeners package
-    private void RegisterListeners() {
+    // automatically registers listeners and commands for each class in the listeners and commands packages
+    private void RegisterListenersAndCommands() {
         String packageName = getClass().getPackage().getName();
         for (Class<?> clazz : new Reflections(packageName + ".listeners")
                 .getSubTypesOf(Listener.class)
@@ -152,6 +153,19 @@ public final class JobsBoardMain extends JavaPlugin {
                         .getDeclaredConstructor()
                         .newInstance();
                 getServer().getPluginManager().registerEvents(listener, this);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (Class<? extends PluginCommand> clazz : new Reflections(packageName + ".commands")
+                .getSubTypesOf(PluginCommand.class)
+        ) {
+            try {
+                PluginCommand pluginCommand = clazz
+                        .getDeclaredConstructor()
+                        .newInstance();
+                getCommand(pluginCommand.getCommandInfo().name()).setExecutor(pluginCommand);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }

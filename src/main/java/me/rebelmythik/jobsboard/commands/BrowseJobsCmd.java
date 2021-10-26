@@ -8,21 +8,16 @@ import org.bukkit.entity.Player;
 import me.rebelmythik.jobsboard.JobsBoardMain;
 import me.rebelmythik.jobsboard.guis.BrowseJobs;
 
-public class BrowseJobsCmd implements CommandExecutor {
+@CommandInfo(name = "jobsboard", permission = "jobsboard.command.browse", requiresPlayer = true)
+public class BrowseJobsCmd extends PluginCommand {
 
     JobsBoardMain plugin;
     public BrowseJobsCmd(JobsBoardMain plugin) {
         this.plugin = plugin;
     }
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("jobsboard.browse")) { sender.sendMessage(ChatColor.DARK_RED + "YOU ARE SUSSY BAKA"); return true; }
-        if (!(sender instanceof Player)) {
-                return false;
-        }
-        Player player = (Player) sender;
+    @Override
+    public void execute(Player player, String[] args) {
         BrowseJobs.BrowseGui(plugin, player);
-
-        return true;
     }
 }

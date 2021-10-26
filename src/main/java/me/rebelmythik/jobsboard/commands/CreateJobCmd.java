@@ -8,28 +8,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CreateJobCmd implements CommandExecutor {
+@CommandInfo(name = "createjob", permission = "jobsboard.command.create", requiresPlayer = true)
+public class CreateJobCmd extends PluginCommand {
 
     JobsBoardMain plugin;
     public CreateJobCmd(JobsBoardMain plugin) {
         this.plugin = plugin;
     }
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
-    {
-        if (!sender.hasPermission("jobsboard.createrequest")) { sender.sendMessage(ChatColor.DARK_RED + "You do not have permission to run this command."); return true; }
-        if (!(sender instanceof Player)) {
-            return false;
-        }
-        Player player = (Player) sender;
 
-        // args: /jb create ITEM AMOUNT REWARD
-
-
-
-
-
-
+    @Override
+    public void execute(Player player, String[] args) {
         me.rebelmythik.jobsboard.guis.CreateJob.createNewRequest(plugin, player, null, 1, 1, 1);
-        return true;
     }
+
 }
