@@ -60,7 +60,7 @@ public final class JobsBoardMain extends JavaPlugin {
 
         // register all listeners present in .listeners package
         RegisterListeners();
-        
+
         // create config.yml in the plugin folder
         this.saveDefaultConfig();
         // create mysql.yml file in the plugin folder
@@ -148,8 +148,10 @@ public final class JobsBoardMain extends JavaPlugin {
                 .getSubTypesOf(Listener.class)
         ) {
             try {
-                Listener listener = (Listener) clazz.getDeclaredConstructor()
+                Listener listener = (Listener) clazz
+                        .getDeclaredConstructor()
                         .newInstance();
+                getServer().getPluginManager().registerEvents(listener, this);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
