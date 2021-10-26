@@ -1,6 +1,6 @@
 name: JobsBoard
 version: ${project.version}
-main: me.rebelmythik.requestboard.Requestboard
+main: me.rebelmythik.jobsboard.JobsBoardMain
 api-version: 1.16
 depend: [ Vault ]
 authors: [ RebelMythik, Kronus ]
