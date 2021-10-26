@@ -5,10 +5,13 @@ import me.rebelmythik.jobsboard.api.Job;
 import me.rebelmythik.jobsboard.commands.CreateJobCmd;
 import me.rebelmythik.jobsboard.commands.BrowseJobsCmd;
 import me.rebelmythik.jobsboard.database.*;
+import me.rebelmythik.jobsboard.tasks.CancelJobTask;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +57,9 @@ public final class JobsBoardMain extends JavaPlugin {
             saveDefaultConfig();
         }
 
+        // on runTaskTimer, first param is the plugin it's running on, second param is delay before schedule starts
+        // third parameter is length of time between tasks being ran. 20L = 1 second, 1L = 1 Tick and 20 ticks = 1 second
+        BukkitTask jobCanceller = new CancelJobTask(this).runTaskTimer(this, 0L, 1000L);
     }
 
     //make static method to create a sign
