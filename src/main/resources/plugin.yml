@@ -7,4 +7,31 @@ authors: [ RebelMythik, Kronus ]
 description: Job Board!
 commands:
   jobsboard:
+    aliases:
+      - jb
+      - jobs
+    description: Open the Jobs Board
+    permission: jobsboard.browse
   createjob:
+    description: Create a Job Request
+    permission: jobsboard.createjob
+
+permissions:
+  jobsboard.*:
+    description: All jobsboard permissions
+    default: op
+    children:
+      jobsboard.command.*: true
+  jobsboard.command.*:
+    description: All commands
+    default: op
+    children:
+      jobsboard.command.browse: true
+      jobsboard.command.createjob: true
+
+  jobsboard.command.browse:
+    description: Allows the use of /jobsboard or /jb
+    default: true
+  jobsboard.command.createjob:
+    description: Allows the use of /createjob
+    default: true
