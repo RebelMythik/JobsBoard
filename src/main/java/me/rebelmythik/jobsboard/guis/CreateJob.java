@@ -1,18 +1,18 @@
-package me.rebelmythik.requestboard.guis;
+package me.rebelmythik.jobsboard.guis;
 
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
-import me.rebelmythik.requestboard.api.Request;
-import me.rebelmythik.requestboard.Requestboard;
+import me.rebelmythik.jobsboard.api.Job;
+import me.rebelmythik.jobsboard.JobsBoardMain;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class CreateRequest {
+public class CreateJob {
 
-    public static void createNewRequest(Requestboard plg, Player plr, ItemStack itm, int cnt, int prc, int tm) {
-        Requestboard plugin = plg;
+    public static void createNewRequest(JobsBoardMain plg, Player plr, ItemStack itm, int cnt, int prc, int tm) {
+        JobsBoardMain plugin = plg;
         Player player = plr;
         ItemStack item;
         if (itm != null) {
@@ -44,9 +44,9 @@ public class CreateRequest {
         }, ChatColor.GREEN + "Close Menu"));
         //Submit Button
         browsegui.addElement(new StaticGuiElement('5', new ItemStack(Material.EMERALD_BLOCK), 1, click -> {
-            plugin.requestList.add(new Request(player.getUniqueId(), player.getName(), item, count, price, time));
+            plugin.jobList.add(new Job(player.getUniqueId(), player.getName(), item, count, price, time));
             browsegui.close();
-            Browsing.BrowseGui(plugin, player);
+            BrowseJobs.BrowseGui(plugin, player);
             return true;
         }, ChatColor.GREEN + "Submit"));
         //Set Item Button

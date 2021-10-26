@@ -1,4 +1,4 @@
-package me.rebelmythik.requestboard.Vault;
+package me.rebelmythik.jobsboard.Vault;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;

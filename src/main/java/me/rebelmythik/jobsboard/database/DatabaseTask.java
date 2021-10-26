@@ -1,4 +1,4 @@
-package me.rebelmythik.requestboard.database;
+package me.rebelmythik.jobsboard.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

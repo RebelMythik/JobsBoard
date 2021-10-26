@@ -1,9 +1,9 @@
-package me.rebelmythik.requestboard.api;
+package me.rebelmythik.jobsboard.api;
 
 import java.util.UUID;
 import org.bukkit.inventory.ItemStack;
 
-public class Request {
+public class Job {
 
     UUID owner;
     String ownerName;
@@ -13,7 +13,7 @@ public class Request {
     int time;
 
     //Constructor
-    public Request(UUID owner, String ownerName, ItemStack item, int count, int price, int time) {
+    public Job(UUID owner, String ownerName, ItemStack item, int count, int price, int time) {
         this.owner = owner;
         this.ownerName = ownerName;
         this.item = item;

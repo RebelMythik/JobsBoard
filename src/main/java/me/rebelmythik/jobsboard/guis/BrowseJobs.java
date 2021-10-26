@@ -1,4 +1,4 @@
-package me.rebelmythik.requestboard.guis;
+package me.rebelmythik.jobsboard.guis;
 
 import java.util.List;
 
@@ -6,23 +6,23 @@ import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.GuiPageElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
-import me.rebelmythik.requestboard.Requestboard;
+import me.rebelmythik.jobsboard.JobsBoardMain;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import me.rebelmythik.requestboard.api.Request;
+import me.rebelmythik.jobsboard.api.Job;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public class Browsing {
+public class BrowseJobs {
     private Inventory inventory;
 
-    public static void BrowseGui(Requestboard plugin, Player pl) {
+    public static void BrowseGui(JobsBoardMain plugin, Player pl) {
         Player player = pl;
-        List<Request> requestList = plugin.requestList;
+        List<Job> jobList = plugin.jobList;
 
         //Gui Layout
         String[] BrowseGuiSetup = {
@@ -38,7 +38,7 @@ public class Browsing {
         // Creates the Inventories
 
         //Create Inventory Base
-        InventoryGui browsegui = new InventoryGui(plugin, null, "RequestBoard", BrowseGuiSetup);
+        InventoryGui browsegui = new InventoryGui(plugin, null, "JobsBoard", BrowseGuiSetup);
 
         //Add close menu button
         browsegui.addElement(new StaticGuiElement('1', new ItemStack(Material.BOOK), 1, click -> {
@@ -63,16 +63,16 @@ public class Browsing {
         //Add create request button
         browsegui.addElement(new StaticGuiElement('4', new ItemStack(Material.PAPER), 1, click -> {
             browsegui.close();
-            if (!player.hasPermission("Requestboard.createrequest")) { player.sendMessage("No u"); return true; }
-            CreateRequest.createNewRequest(plugin, player, null, 1, 1, 1);
+            if (!player.hasPermission("jobsboard.createrequest")) { player.sendMessage("No u"); return true; }
+            CreateJob.createNewRequest(plugin, player, null, 1, 1, 1);
             return true;
         }, ChatColor.GREEN + "Create Request"));
 
         GuiElementGroup guiGroup = new GuiElementGroup('g');
 
-        if (requestList.size() != 0) {
-            for (int e = 0; e < requestList.size(); e++) {
-                Request curReq = requestList.get(e);
+        if (jobList.size() != 0) {
+            for (int e = 0; e < jobList.size(); e++) {
+                Job curReq = jobList.get(e);
                 ItemStack item = curReq.getItem();
                 ItemMeta meta = item.getItemMeta();
                 List<String> lore = new ArrayList<String>();
