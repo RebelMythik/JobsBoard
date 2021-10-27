@@ -17,7 +17,7 @@ public class GenerateDbTables {
                     uuid text NOT NULL,
                     name text NOT NULL,
                     item text NOT NULL,
-                    quanity integer NOT NULL,
+                    quantity integer NOT NULL,
                     reward real NOT NULL,
                     expiration_date integer NOT NULL
                 );
