@@ -44,7 +44,7 @@ public class CreateJob {
         }, ChatColor.GREEN + "Close Menu"));
         //Submit Button
         browsegui.addElement(new StaticGuiElement('5', new ItemStack(Material.EMERALD_BLOCK), 1, click -> {
-            plugin.jobList.add(new Job(player.getUniqueId(), player.getName(), item, count, price, time));
+            plugin.jobList.add(new Job(player.getUniqueId(), player.getName(), item, count, price));
             browsegui.close();
             BrowseJobs.BrowseGui(plugin, player);
             return true;
