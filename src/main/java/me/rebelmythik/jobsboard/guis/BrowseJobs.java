@@ -77,8 +77,8 @@ public class BrowseJobs {
                 ItemMeta meta = item.getItemMeta();
                 List<String> lore = new ArrayList<String>();
                 lore.add(ChatColor.GREEN + "Posted By: " + curReq.getOwnerName());
-                lore.add(ChatColor.GREEN + String.valueOf(curReq.getCount()) + " x " + item.getType().toString());
-                lore.add(ChatColor.GREEN + "Reward: " + String.valueOf(curReq.getPrice()) + " moneys");
+                lore.add(ChatColor.GREEN + String.valueOf(curReq.getQuantity()) + " x " + item.getType().toString());
+                lore.add(ChatColor.GREEN + "Reward: " + String.valueOf(curReq.getReward()) + " moneys");
                 lore.add(ChatColor.GREEN + String.valueOf(curReq.getTime()) + " Seconds Remaining");
                 meta.setLore(lore);
                 item.setItemMeta(meta);

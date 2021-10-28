@@ -10,19 +10,18 @@ public class Job {
     UUID owner;
     String ownerName;
     ItemStack item;
-    int count;
-    int price;
+    int quantity;
+    int reward;
     int time;
     int expirationDate;
 
     //Constructor
-    public Job(UUID owner, String ownerName, ItemStack item, int count, int price, int time) {
+    public Job(UUID owner, String ownerName, ItemStack item, int quantity, int reward) {
         this.owner = owner;
         this.ownerName = ownerName;
         this.item = item;
-        this.count = count;
-        this.price = price;
-        this.time = time;
+        this.quantity = quantity;
+        this.reward = reward;
         this.expirationDate = getExpirationDate();
     }
 
@@ -36,11 +35,11 @@ public class Job {
     public ItemStack getItem() {
         return item;
     }
-    public int getCount() {
-        return count;
+    public int getQuantity() {
+        return quantity;
     }
-    public int getPrice() {
-        return price;
+    public int getReward() {
+        return reward;
     }
     public int getTime() {
         return time;
@@ -56,11 +55,11 @@ public class Job {
     public void setItem(ItemStack item) {
         this.item = item;
     }
-    public void setCount(int count) {
-        this.count = count;
+    public void setQuantity(int count) {
+        this.quantity = count;
     }
-    public void setPrice(int price) {
-        this.price = price;
+    public void setReward(int price) {
+        this.reward = price;
     }
     public void setTime(int time) {
         this.time = time;

@@ -52,7 +52,17 @@ public final class JobsBoardMain extends JavaPlugin {
             // Ahh Shit Something Broke
             e.printStackTrace();
         }
-        getLogger().info("Database Connected");
+        getLogger().info("Database Connected!");
+
+        getLogger().info("Intializing Tables...");
+        try {
+            GenerateDbTables.MakeDbTables();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        getLogger().info("Tables Initialized!");
+
+        instance = this;
 
         // magic function (no touchy)
         RegisterListenersAndCommands();

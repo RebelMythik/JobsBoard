@@ -19,7 +19,7 @@ public class DatabaseHelper {
 
     /** - Creates a table in the database for name and appends the SQL parameters specified in fields. */
 
-    private void createTaxTable(String name, String fields) {
+    public void createTaxTable(String name, String fields) {
         String sqlString = "CREATE TABLE " + plugin.getDbPrefix()
                 + name + " (" + fields + ");";
         manager.runInstantTask(new DatabaseTask(sqlString));
