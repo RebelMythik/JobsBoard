@@ -1,8 +1,16 @@
 package me.rebelmythik.jobsboard.commands.subcommands;
 
+import me.rebelmythik.jobsboard.JobsBoardMain;
+import me.rebelmythik.jobsboard.database.DbCommands;
+import me.rebelmythik.jobsboard.utils.NumberHelper;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Calendar;
+import java.util.Date;
 
 @SubcommandInfo(name = "browse", permission = "jobsboard.command.create", requiresPlayer = true)
 public class CreateSubcommand extends PluginSubCommand {
@@ -26,31 +34,53 @@ public class CreateSubcommand extends PluginSubCommand {
         player.sendMessage(ChatColor.RED + "Correct usage: " + getSyntax());
     }
 
+    private int getExpirationDate(int expDays) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.HOUR, expDays * 24);
+        return (int) ((c.getTimeInMillis())/1000);
+    }
+
     @Override
     public void perform(Player player, String @NotNull [] args){
 
-        // user typed /jb create with no arguments
-        if (args.length == 1) {
-            sendCorrectUsageMessage(player);
-        }
-        else if (args.length > 1) {
-            // user typed /jb create <item>
-            if (args.length == 2) {
-                sendCorrectUsageMessage(player);
-            }
-            // user typed /jb create <item> <amount>
-            else if (args.length == 3) {
-                sendCorrectUsageMessage(player);
-            }
-            // user typed /jb create <item> <amount> <reward> (allegedly)
-            else if (args.length == 4) {
+        FileConfiguration config = JobsBoardMain.getPluginInstance().getConfig();
+        int expDays = config.getInt("jobs.days_before_expiration");
+        int minItemAmount = config.getInt("jobs.item_limits.min");
+        int maxItemAmount = config.getInt("jobs.item_limits.max");
+        double minReward = config.getDouble("jobs.reward_limits.min");
+        double maxReward = config.getDouble("jobs.reward_limits.max");
 
-            }
-            else {
-                sendCorrectUsageMessage(player);
-            }
+        if (args.length != 4) {
+            sendCorrectUsageMessage(player);
+            return;
+        }
+        else if (Material.getMaterial(args[1]) == null) {
+            player.sendMessage(ChatColor.RED + "Please input a valid item name.");
+            sendCorrectUsageMessage(player);
+            return;
+        }
+        else if (!NumberHelper.isInt(args[2])) {
+            player.sendMessage(ChatColor.RED + "Please input a valid integer for item amount.");
+            sendCorrectUsageMessage(player);
+            return;
+        }
+        else if (Integer.parseInt(args[2]) < minItemAmount || Integer.parseInt(args[2]) > maxItemAmount) {
+            player.sendMessage(ChatColor.RED + "You may only request between" + minItemAmount + " and " + maxItemAmount + " items per job.");
+            return;
+        }
+        else if (!NumberHelper.isDouble(args[3])) {
+            player.sendMessage(ChatColor.RED + "Please input a valid number for the job reward. Example: 100.00");
+            return;
+        }
+        else if (Double.parseDouble(args[3]) < minReward || Double.parseDouble(args[3]) > maxReward) {
+            player.sendMessage(ChatColor.RED + "You may only set your reward between $" + minReward + " and $" + maxReward);
+            return;
+        }
+        else {
+            DbCommands.AddJobToDb(player.getUniqueId().toString(), player.getName(), args[1], args[2], args[3], Integer.toString(getExpirationDate(expDays)));
+            player.sendMessage(ChatColor.GREEN + "Job Request Submitted!");
         }
     }
-
-
 }
+

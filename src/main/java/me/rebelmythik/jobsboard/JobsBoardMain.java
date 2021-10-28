@@ -45,7 +45,6 @@ public final class JobsBoardMain extends JavaPlugin {
 
         instance = this;
 
-
         try {
             setupDatabase();
         } catch (Exception e) {

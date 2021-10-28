@@ -9,7 +9,7 @@ public class GenerateDbTables {
         DatabaseHelper helper = JobsBoardMain.getPluginInstance().getDatabaseHelper();
         String prefix = JobsBoardMain.getPluginInstance().getDbPrefix();
 
-        /** jb_activejobs **/
+        // jb_activejobs
         helper.executeSQLWithoutReturn(
                 String.format("""
                 CREATE TABLE IF NOT EXISTS %sactivejobs (

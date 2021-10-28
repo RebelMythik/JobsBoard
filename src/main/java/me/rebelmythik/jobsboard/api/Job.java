@@ -22,7 +22,6 @@ public class Job {
         this.item = item;
         this.quantity = quantity;
         this.reward = reward;
-        this.expirationDate = getExpirationDate();
     }
 
     //Gets
@@ -66,10 +65,5 @@ public class Job {
     }
 
 
-    private int getExpirationDate() {
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.HOUR, 24); //TODO add in config value for days and multiply the 24 by it
-        return (int) ((c.getTimeInMillis())/1000);
-    }
+
 }

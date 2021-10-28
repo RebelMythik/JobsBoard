@@ -13,8 +13,8 @@ public class DbCommands {
         String prefix = JobsBoardMain.getPluginInstance().getDbPrefix();
 
         helper.executeSQLWithoutReturn(
-                "INSERT INTO " + prefix + "activejobs (id, owner_uuid, owner_name, item, quantity, price, expiration_date) VALUES ( " +
-                        "id_placeholder, " + owner_uuid + ", " + owner_name + ", " + item + ", " + quantity + ", " + price + ", " + expiration_date + ");"
+                "INSERT INTO " + prefix + "activejobs (owner_uuid, owner_name, item, quantity, price, expiration_date) VALUES ( " +
+                        owner_uuid + ", " + owner_name + ", " + item + ", " + quantity + ", " + price + ", " + expiration_date + ");"
         );
 
     }
