@@ -1,23 +1,36 @@
 package me.rebelmythik.jobsboard.commands;
 
+import me.rebelmythik.jobsboard.commands.subcommands.BrowseSubcommand;
+import me.rebelmythik.jobsboard.commands.subcommands.CreateSubcommand;
+import me.rebelmythik.jobsboard.commands.subcommands.PluginSubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class PluginCommand implements CommandExecutor {
+
     private final CommandInfo commandInfo;
+    private final ArrayList<PluginSubCommand> subCommands = new ArrayList<>();
 
     public PluginCommand() {
         commandInfo = getClass().getDeclaredAnnotation(CommandInfo.class);
         Objects.requireNonNull(commandInfo, "Commands must have CommandInfo annotations");
+        subCommands.add(new BrowseSubcommand());
+        subCommands.add(new CreateSubcommand());
     }
 
     public CommandInfo getCommandInfo() {
         return commandInfo;
+    }
+
+    public ArrayList<PluginSubCommand> getSubCommands(){
+        return subCommands;
     }
 
     @Override
@@ -41,4 +54,5 @@ public abstract class PluginCommand implements CommandExecutor {
 
     public void execute(Player player, String[] args) {}
     public void execute(CommandSender sender, String[] args) {};
+    public List<String> onTabComplete() { return null; }
 }

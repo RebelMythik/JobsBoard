@@ -2,8 +2,6 @@ package me.rebelmythik.jobsboard;
 
 import me.rebelmythik.jobsboard.Vault.Vault;
 import me.rebelmythik.jobsboard.api.Job;
-import me.rebelmythik.jobsboard.commands.CreateJobCmd;
-import me.rebelmythik.jobsboard.commands.BrowseJobsCmd;
 import me.rebelmythik.jobsboard.commands.PluginCommand;
 import me.rebelmythik.jobsboard.database.*;
 import me.rebelmythik.jobsboard.tasks.CancelJobTask;
@@ -12,7 +10,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.reflections.Reflections;
 
@@ -23,7 +20,7 @@ import java.util.ArrayList;
 
 public final class JobsBoardMain extends JavaPlugin {
 
-    public static JobsBoardMain self;
+    private static JobsBoardMain instance;
     private static FileConfiguration mySqlConfig;
     private static File mySqlYml;
 
@@ -45,7 +42,10 @@ public final class JobsBoardMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        
+
+        instance = this;
+
+
         try {
             setupDatabase();
         } catch (Exception e) {
@@ -110,6 +110,9 @@ public final class JobsBoardMain extends JavaPlugin {
     public DatabaseHelper getDatabaseHelper() {
         return databaseHelper;
     }
+
+    /** - Getter for plugin **/
+    public static JobsBoardMain getPluginInstance() { return instance; }
 
     /** - Sets up the database on init; Run on enable / plugin reload *if you want* */
     private boolean setupDatabase() {

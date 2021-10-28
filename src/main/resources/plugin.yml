@@ -6,16 +6,11 @@ depend: [ Vault ]
 authors: [ RebelMythik, Kronus ]
 description: Job Board!
 commands:
-  jobsboard:
+  jb:
     aliases:
-      - jb
-      - jobs
-    description: Open the Jobs Board
-    permission: jobsboard.command.browse
-  createjob:
-    description: Create a Job Request
-    permission: jobsboard.command.createjob
-
+      - jobsboard
+    description: Main command for working with the Jobs Board plugin
+    permission: jobsboard.use
 permissions:
   jobsboard.*:
     description: All jobsboard permissions
@@ -28,10 +23,12 @@ permissions:
     children:
       jobsboard.command.browse: true
       jobsboard.command.createjob: true
-
+  jobsboard.use:
+    description: Permission to use the main jobsboard command /jb
+    default: true
   jobsboard.command.browse:
-    description: Allows the use of /jobsboard or /jb
+    description: Allows the use of /jb browse
     default: true
   jobsboard.command.createjob:
-    description: Allows the use of /createjob
+    description: Allows the use of /jb create <item> <amount> <reward>
     default: true
