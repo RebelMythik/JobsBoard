@@ -1,5 +1,6 @@
 package me.rebelmythik.jobsboard;
 
+import com.earth2me.essentials.Essentials;
 import me.rebelmythik.jobsboard.Vault.Vault;
 import me.rebelmythik.jobsboard.api.Job;
 import me.rebelmythik.jobsboard.commands.PluginCommand;
@@ -39,11 +40,18 @@ public final class JobsBoardMain extends JavaPlugin {
     private boolean useSSL = false; // Use ssl for MySQL?
 
     public ArrayList<Job> jobList = new ArrayList<Job>();
+    private static Essentials ess;
+
 
     @Override
     public void onEnable() {
 
         instance = this;
+
+        // get essentialsx (dependency for this plugin)
+        if(getServer().getPluginManager().getPlugin("Essentials") != null) {
+            ess = (Essentials) Essentials.getProvidingPlugin(Essentials.class);
+        }
 
         try {
             setupDatabase();
@@ -122,6 +130,8 @@ public final class JobsBoardMain extends JavaPlugin {
 
     /** - Getter for plugin **/
     public static JobsBoardMain getPluginInstance() { return instance; }
+
+    public static Essentials getEss() { return ess; }
 
     /** - Sets up the database on init; Run on enable / plugin reload *if you want* */
     private boolean setupDatabase() {
