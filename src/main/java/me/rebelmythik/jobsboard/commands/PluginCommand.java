@@ -2,6 +2,7 @@ package me.rebelmythik.jobsboard.commands;
 
 import me.rebelmythik.jobsboard.commands.subcommands.BrowseSubcommand;
 import me.rebelmythik.jobsboard.commands.subcommands.CreateSubcommand;
+import me.rebelmythik.jobsboard.commands.subcommands.ListSubcommand;
 import me.rebelmythik.jobsboard.commands.subcommands.PluginSubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,6 +27,7 @@ public abstract class PluginCommand implements CommandExecutor, TabCompleter {
         Objects.requireNonNull(commandInfo, "Commands must have CommandInfo annotations");
         subCommands.add(new BrowseSubcommand());
         subCommands.add(new CreateSubcommand());
+        subCommands.add(new ListSubcommand());
     }
 
     public CommandInfo getCommandInfo() {
@@ -62,5 +64,4 @@ public abstract class PluginCommand implements CommandExecutor, TabCompleter {
 
     public void execute(Player player, String[] args) {}
     public void execute(CommandSender sender, String[] args) {};
-    public List<String> onTabComplete() { return null; }
 }
