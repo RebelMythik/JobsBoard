@@ -2,7 +2,7 @@ name: JobsBoard
 version: ${project.version}
 main: me.rebelmythik.jobsboard.JobsBoardMain
 api-version: 1.16
-depend: [ Vault, Essentials ]
+depend: [ Vault ]
 authors: [ RebelMythik, Kronus ]
 description: Job Board!
 commands:

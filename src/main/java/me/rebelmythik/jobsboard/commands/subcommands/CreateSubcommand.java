@@ -19,7 +19,7 @@ import net.ess3.api.IItemDb;
 import java.util.*;
 
 @SubcommandInfo(name = "browse", permission = "jobsboard.command.create", requiresPlayer = true)
-public class CreateSubcommand extends PluginSubCommand implements TabCompleter {
+public class CreateSubcommand extends PluginSubCommand {
 
     @Override
     public String getName() {
@@ -86,29 +86,6 @@ public class CreateSubcommand extends PluginSubCommand implements TabCompleter {
         else {
             DbCommands.AddJobToDb(player.getUniqueId().toString(), player.getName(), args[1], args[2], args[3], Integer.toString(getExpirationDate(expDays)));
             player.sendMessage(ChatColor.GREEN + "Job Request Submitted!");
-        }
-    }
-
-    // /jb create
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-
-        FileConfiguration config = JobsBoardMain.getPluginInstance().getConfig();
-        Essentials ess = JobsBoardMain.getEss();
-
-        if (strings.length == 1) {
-            return new ArrayList<>(ess.getItemDb().listNames());
-        }
-        else if (strings.length == 2) {
-            return Lists.newArrayList(Integer.toString(config.getInt("jobs.item_limits.min")),
-                                               Integer.toString(config.getInt("jobs.item_limits.max")));
-        }
-        else if (strings.length == 3) {
-            return Lists.newArrayList(Double.toString(config.getDouble("jobs.reward_limits.min")),
-                    Double.toString(config.getDouble("jobs.reward_limits.max")));
-        }
-        else {
-            return Collections.emptyList();
         }
     }
 }

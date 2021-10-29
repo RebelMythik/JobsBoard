@@ -7,13 +7,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class PluginCommand implements CommandExecutor {
+public abstract class PluginCommand implements CommandExecutor, TabCompleter {
 
     private final CommandInfo commandInfo;
     private final ArrayList<PluginSubCommand> subCommands = new ArrayList<>();
@@ -50,6 +53,11 @@ public abstract class PluginCommand implements CommandExecutor {
         }
         execute(sender, args);
         return true;
+    }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        return null;
     }
 
     public void execute(Player player, String[] args) {}
