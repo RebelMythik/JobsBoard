@@ -61,7 +61,7 @@ public class CreateSubcommand extends PluginSubCommand {
             sendCorrectUsageMessage(player);
             return;
         }
-        else if (Material.getMaterial(args[1]) == null) {
+        else if (Material.getMaterial(args[1].toUpperCase()) == null) {
             player.sendMessage(ChatColor.RED + "Please input a valid item name.");
             sendCorrectUsageMessage(player);
             return;
@@ -72,7 +72,7 @@ public class CreateSubcommand extends PluginSubCommand {
             return;
         }
         else if (Integer.parseInt(args[2]) < minItemAmount || Integer.parseInt(args[2]) > maxItemAmount) {
-            player.sendMessage(ChatColor.RED + "You may only request between" + minItemAmount + " and " + maxItemAmount + " items per job.");
+            player.sendMessage(ChatColor.RED + "You may only request between " + minItemAmount + " and " + maxItemAmount + " items per job.");
             return;
         }
         else if (!NumberHelper.isDouble(args[3])) {
@@ -84,7 +84,7 @@ public class CreateSubcommand extends PluginSubCommand {
             return;
         }
         else {
-            DbCommands.AddJobToDb(player.getUniqueId().toString(), player.getName(), args[1], args[2], args[3], Integer.toString(getExpirationDate(expDays)));
+            DbCommands.AddJobToDb(player.getUniqueId().toString(), player.getName(), args[1].toUpperCase(), args[2], args[3], Integer.toString(getExpirationDate(expDays)));
             player.sendMessage(ChatColor.GREEN + "Job Request Submitted!");
         }
     }

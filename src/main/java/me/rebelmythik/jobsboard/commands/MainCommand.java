@@ -21,9 +21,6 @@ public class MainCommand extends PluginCommand {
     @Override
     public void execute(Player player, String[] args){
         ArrayList<PluginSubCommand> subCommands = getSubCommands();
-
-        for (PluginSubCommand sub : subCommands) possibleSubCommands.add(sub.getName());
-
         if (args.length > 0) {
             for (int i = 0; i < subCommands.size(); i++) {
                 if (args[0].equalsIgnoreCase(subCommands.get(i).getName())) {
@@ -36,16 +33,19 @@ public class MainCommand extends PluginCommand {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        if (args.length == 0) {
+        ArrayList<PluginSubCommand> subCommands = getSubCommands();
+        for (PluginSubCommand sc : subCommands) possibleSubCommands.add(sc.getName());
+
+        if (args.length == 1) {
             return possibleSubCommands;
         }
-        else if (args.length == 1) {
+        else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("create")) return ItemHelper.getItemList();
         }
-        else if (args.length == 2) {
+        else if (args.length == 3) {
             if (args[0].equalsIgnoreCase("create")) return RangeHelper.getItemAmountRange();
         }
-        else if (args.length == 3) {
+        else if (args.length == 4) {
             if (args[0].equalsIgnoreCase("create")) return RangeHelper.getRewardAmountRange();
         }
 
