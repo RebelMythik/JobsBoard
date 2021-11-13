@@ -1,10 +1,10 @@
 package me.rebelmythik.jobsboard.guis;
 
-import de.themoep.inventorygui.GuiStateElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
-import me.rebelmythik.jobsboard.api.Job;
 import me.rebelmythik.jobsboard.JobsBoardMain;
+import me.rebelmythik.jobsboard.api.Job;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,19 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CreateJob {
 
-    public static void createNewRequest(JobsBoardMain plg, Player plr, ItemStack itm, int cnt, int prc, int tm) {
-        JobsBoardMain plugin = plg;
-        Player player = plr;
-        ItemStack item;
-        if (itm != null) {
-            item = itm;
-        } else {
-            item = new ItemStack(Material.DIRT);
-        }
-        int count = cnt;
-        int price = prc;
-        int time = tm;
-
+    public static void createNewRequest(JobsBoardMain plugin, Player player, ItemStack item, int count, int price, int time) {
         //Gui Layout
         String[] BrowseGuiSetup = {
                 "ccccccccc",
@@ -50,15 +38,19 @@ public class CreateJob {
             BrowseJobs.BrowseGui(plugin, player);
             return true;
         }, ChatColor.GREEN + "Submit"));
-        //Set Item Button
-        browsegui.addElement(new StaticGuiElement('1', item, 1, click -> {
-            if (click.getEvent().getCursor() != null) {
-                click.getElement().getItem(player, click.getSlot()).setType(click.getEvent().getCursor().getType());
-                player.sendMessage(click.getEvent().getCursor().getType().toString());
-                //item.setType(click.getEvent().getCursor().getType());
-            }
-            return true;
-        }, ChatColor.GREEN + "Set Item (Drag item onto this slot)"));
+        //Set Item Button (DIRT IF NO JOB ITEM)
+        if (item != null)
+            browsegui.addElement(new StaticGuiElement('1', item,
+                    ChatColor.GREEN + "Job Icon: " + StringUtils.capitalize(item.getType().name().toLowerCase())));
+        else
+            browsegui.addElement(new StaticGuiElement('1', new ItemStack(Material.DIRT), 1, click -> {
+                ItemStack _item = click.getEvent().getCursor();
+                if (_item != null) { //If item set, create a new UI
+                    createNewRequest(plugin, player, _item, count, price, time);
+                    click.getGui().close();
+                }
+                return true;
+            }, ChatColor.RED + "Set Item (Drag/Click item onto this slot)"));
         //Set Count Button
         browsegui.addElement(new StaticGuiElement('2', new ItemStack(Material.BOOK), ChatColor.GREEN + "Item Count (Capped at 64); Current: " + count));
         //Set Price Button
@@ -73,6 +65,5 @@ public class CreateJob {
 
         browsegui.show(player);
     }
-
 
 }
