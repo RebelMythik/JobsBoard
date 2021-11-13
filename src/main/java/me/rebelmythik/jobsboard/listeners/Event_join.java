@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PlayerJoinListener implements Listener {
+public class Event_join implements Listener {
 
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
