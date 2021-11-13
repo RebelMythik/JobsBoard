@@ -4,6 +4,7 @@ import me.rebelmythik.jobsboard.Vault.Vault;
 import me.rebelmythik.jobsboard.api.Job;
 import me.rebelmythik.jobsboard.commands.PluginCommand;
 import me.rebelmythik.jobsboard.database.*;
+import me.rebelmythik.jobsboard.listeners.EventHandler;
 import me.rebelmythik.jobsboard.tasks.CancelJobTask;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,8 +38,9 @@ public final class JobsBoardMain extends JavaPlugin {
     private static String databat = "database"; // Database name to use
     private static short port = 3306; // Port for the host for MySQL
     private boolean useSSL = false; // Use ssl for MySQL?
+    private EventHandler eventHandler = new EventHandler(); // Use ssl for MySQL?
 
-    public ArrayList<Job> jobList = new ArrayList<Job>();
+    public ArrayList<Job> jobList = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -78,6 +80,7 @@ public final class JobsBoardMain extends JavaPlugin {
         // on runTaskTimer, first param is the plugin it's running on, second param is delay before schedule starts
         // third parameter is length of time between tasks being ran. 20L = 1 second, 1L = 1 Tick and 20 ticks = 1 second
         BukkitTask jobCanceller = new CancelJobTask(this).runTaskTimer(this, 0L, 200L);
+        eventHandler.load(); //Load all internal events
     }
 
     //make static method to create a sign

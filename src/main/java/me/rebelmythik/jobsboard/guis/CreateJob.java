@@ -1,5 +1,6 @@
 package me.rebelmythik.jobsboard.guis;
 
+import de.themoep.inventorygui.GuiStateElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import me.rebelmythik.jobsboard.api.Job;
@@ -52,40 +53,24 @@ public class CreateJob {
         //Set Item Button
         browsegui.addElement(new StaticGuiElement('1', item, 1, click -> {
             if (click.getEvent().getCursor() != null) {
-                item.setType(click.getEvent().getCursor().getType());
+                click.getElement().getItem(player, click.getSlot()).setType(click.getEvent().getCursor().getType());
+                player.sendMessage(click.getEvent().getCursor().getType().toString());
+                //item.setType(click.getEvent().getCursor().getType());
             }
             return true;
         }, ChatColor.GREEN + "Set Item (Drag item onto this slot)"));
         //Set Count Button
-        browsegui.addElement(new StaticGuiElement('2', new ItemStack(Material.BOOK), 1, click -> {
-            //Get number input
-
-
-            return true;
-        }, ChatColor.GREEN + "Item Count (Capped at 64); Current: " + count));
+        browsegui.addElement(new StaticGuiElement('2', new ItemStack(Material.BOOK), ChatColor.GREEN + "Item Count (Capped at 64); Current: " + count));
         //Set Price Button
-        browsegui.addElement(new StaticGuiElement('3', new ItemStack(Material.BOOK), 1, click -> {
-            //Get number input
-
-
-            return true;
-        }, ChatColor.GREEN + "Offered Price: " + price));
+        browsegui.addElement(new StaticGuiElement('3', new ItemStack(Material.BOOK), ChatColor.GREEN + "Offered Price: " + price));
         //Set Time Button
-        browsegui.addElement(new StaticGuiElement('4', new ItemStack(Material.BOOK), 1, click -> {
-            //Get number input
-
-
-            return true;
-        }, ChatColor.GREEN + "Time until request expires in seconds XP (capped at 86400); Current: " + time + " seconds"));
+        browsegui.addElement(new StaticGuiElement('4', new ItemStack(Material.BOOK), ChatColor.GREEN + "Time until request expires in seconds XP (capped at 86400); Current: " + time + " seconds"));
         //Back to Browse Button
-        browsegui.addElement(new StaticGuiElement('7', new ItemStack(Material.ARROW), 1, click -> {
-
-            return true;
-        }, ChatColor.GREEN + "Return to Browsing"));
+        browsegui.addElement(new StaticGuiElement('7', new ItemStack(Material.ARROW), ChatColor.GREEN + "Return to Browsing"));
         //Glass
-        browsegui.addElement(new StaticGuiElement('c', new ItemStack(Material.BLUE_STAINED_GLASS_PANE), 1, click -> {
-            return true;
-        }, ChatColor.GREEN +"E"));
+        browsegui.addElement(new StaticGuiElement('c', new ItemStack(Material.BLUE_STAINED_GLASS_PANE), ChatColor.GREEN +"E"));
+
+
         browsegui.show(player);
     }
 
